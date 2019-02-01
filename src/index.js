@@ -1,1 +1,1 @@
-export default 'Welcome to express-pagination'
+export { default } from './pagination'
