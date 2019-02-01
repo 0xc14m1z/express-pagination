@@ -51,15 +51,13 @@ export default () => {
     })
 
     it('should throw if results per page is not an positive integer', () => {
-      expect(() => addPagination('42')).to.throw
-      expect(() => addPagination({})).to.throw
-      expect(() => addPagination([])).to.throw
-      expect(() => addPagination(4.2)).to.throw
-      expect(() => addPagination(() => 42)).to.throw
-      expect(() => addPagination(NaN)).to.throw
-      expect(() => addPagination(-5)).to.throw
-      expect(() => addPagination(0)).to.throw
-      expect(() => addPagination(true)).to.throw
+      expect(() => addPagination('42')).to.throw(TypeError)
+      expect(() => addPagination({})).to.throw(TypeError)
+      expect(() => addPagination([])).to.throw(TypeError)
+      expect(() => addPagination(4.2)).to.throw(TypeError)
+      expect(() => addPagination(() => 42)).to.throw(TypeError)
+      expect(() => addPagination(-5)).to.throw(TypeError)
+      expect(() => addPagination(true)).to.throw(TypeError)
 
       expect(() => addPagination(42)).not.to.throw
     })
