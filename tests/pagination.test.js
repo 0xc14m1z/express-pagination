@@ -60,6 +60,8 @@ export default () => {
       expect(() => addPagination(-5)).to.throw
       expect(() => addPagination(0)).to.throw
       expect(() => addPagination(true)).to.throw
+
+      expect(() => addPagination(42)).not.to.throw
     })
 
     it('should return a middleware function', () => {
@@ -150,7 +152,7 @@ export default () => {
               next = () => {}
 
         middleware(request, response, next)
-        expect(request.pagination).to.have.property('perPage', CUSTOM_PER_PAGE)
+        expect(request.pagination).to.have.property('perPage', RESULTS_PER_PAGE)
       })
 
       it('should use given results per page number from query string parameters', () => {
