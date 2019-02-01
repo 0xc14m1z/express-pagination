@@ -1,7 +1,7 @@
 {
-  "name": "express-pagination",
+  "name": "@0xc14m1z/express-pagination",
   "version": "1.0.0",
-  "description": "Describe express-pagination here",
+  "description": "Configurable ExpressJS pagination middleware.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
