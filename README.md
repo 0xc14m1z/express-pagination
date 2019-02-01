@@ -13,9 +13,32 @@ Configurable ExpressJS pagination middleware.
 npm install --save @0xc14m1z/express-pagination
 ```
 
-## usage
+## basic usage
 
+```js
+import express from 'express'
+import { addPagination, addPaginationWith } from '@0xc14m1z/express-pagination'
 
+app.get('/first-route', addPagination, (req, res) => {
+  console.log(req.pagination)
+  /*
+    {
+      page: 1
+      perPage: 50
+    }
+  */
+})
+
+app.get('/second-route', addPaginationWith(30), (req, res) => {
+  console.log(req.pagination)
+  /*
+    {
+      page: 1
+      perPage: 30
+    }
+  */
+})
+```
 
 
 

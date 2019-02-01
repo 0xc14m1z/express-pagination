@@ -1,6 +1,7 @@
 import pagination from './pagination'
 
-const addPagination = pagination()
+const addPaginationWith = pagination()
+const addPagination = addPaginationWith()
 
 export default pagination
-export { addPagination }
+export { addPagination, addPaginationWith }
