@@ -16,8 +16,11 @@
     "nyc": "^13.1.0",
     "sinon": "^7.2.3"
   },
-  "author": "",
-  "homepage": "",
+  "author": "0xc14m1z <0xc14m1z@gmail.com>",
+  "homepage": "https://github.com/0xc14m1z/express-pagination#readme",
   "license": "MIT",
-  "repository": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xc14m1z/express-pagination.git"
+  }
 }
