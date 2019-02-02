@@ -2,25 +2,18 @@
   "name": "@0xc14m1z/express-pagination",
   "version": "1.1.2",
   "description": "Configurable ExpressJS pagination middleware.",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "files": [
-    "es",
-    "lib",
-    "umd"
-  ],
+  "main": "src/index.js",
   "scripts": {
-    "build": "nwb build-web-module",
-    "clean": "nwb clean-module",
-    "prepublishOnly": "npm run build",
-    "test": "nwb test",
-    "test:coverage": "nwb test --coverage",
-    "test:watch": "nwb test --server"
+    "test": "mocha",
+    "test:coverage": "nyc report --reporter=lcov",
+    "test:watch": "npm test -- --watch"
   },
   "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",
-    "nwb": "0.23.x",
+    "coveralls": "^3.0.2",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "sinon": "^7.2.3"
   },
   "author": "",
