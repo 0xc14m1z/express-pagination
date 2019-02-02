@@ -1,4 +1,4 @@
-import isPositiveInteger from './isPositiveInteger'
+const isPositiveInteger = require('./isPositiveInteger')
 
 const RESULTS_PER_PAGE_ERROR_MESSAGE =
   'The number of results per page must be a positive integer.'
@@ -19,19 +19,19 @@ const DEFAULT_CONFIG = {
 
 const DEFAULT_PAGE = 1
 
-const pagination = config => {
+module.exports = function pagination(config) {
   config = config || {}
-  
+
   const input = config.input || DEFAULT_CONFIG.input,
         output = config.output || DEFAULT_CONFIG.output
 
-  return localPerPage => {
+  return function(localPerPage) {
     localPerPage = localPerPage || output.defaultPerPage
 
     if ( !isPositiveInteger(localPerPage) )
       throw new TypeError(RESULTS_PER_PAGE_ERROR_MESSAGE)
 
-    return (request, _, next) => {
+    return function(request, _, next) {
       const { query, params, body } = request,
             source = query || params || body || {},
             page = source[input.page] || DEFAULT_PAGE,
@@ -48,5 +48,3 @@ const pagination = config => {
     }
   }
 }
-
-export default pagination
