@@ -1,6 +1,7 @@
 const expect = require('chai').expect
-const pagination = require('../src/pagination')
 const sinon = require('sinon')
+
+const pagination = require('../src')
 
 module.exports = function () {
 
@@ -20,7 +21,7 @@ module.exports = function () {
             },
             output: {
               property: 'paginazione',
-              page: 'page',
+              page: 'currentPage',
               perPage: 'limit',
               from: 'offset',
               defaultPerPage: 50
@@ -34,7 +35,7 @@ module.exports = function () {
 
     middleware(request, response, next)
     expect(request).to.have.property('paginazione')
-    expect(request.paginazione).to.have.property('page', 3)
+    expect(request.paginazione).to.have.property('currentPage', 3)
     expect(request.paginazione).to.have.property('limit', 21)
     expect(request.paginazione).to.have.property('offset', 42)
   })
@@ -181,6 +182,102 @@ module.exports = function () {
         expect(request.pagination).to.have.property('perPage', 30)
       })
 
+    })
+  })
+
+  describe('integration', function () {
+    const chai = require('chai'),
+          http = require('chai-http')
+
+    chai.use(http)
+
+    const express = require('express'),
+          app = express().use(express.json()),
+          addPagination = pagination.addPagination
+
+    it('should get input from query string', function (done) {
+      function handler(request, response) {
+        expect(request).to.have.property('pagination')
+        expect(request.pagination).to.have.property('page', 3)
+        expect(request.pagination).to.have.property('perPage', 42)
+        expect(request.pagination).to.have.property('from', 84)
+
+        response.end()
+      }
+
+      app.get('/first', addPagination, handler)
+
+      chai.request(app)
+          .get('/first?page=3&perPage=42')
+          .end(done)
+    })
+
+    it('should get input from url parameters', function (done) {
+      function handler(request, response) {
+        expect(request).to.have.property('pagination')
+        expect(request.pagination).to.have.property('page', 2)
+        expect(request.pagination).to.have.property('perPage', 21)
+        expect(request.pagination).to.have.property('from', 21)
+
+        response.end()
+      }
+
+      app.get('/second/:page/:perPage', addPagination, handler)
+
+      chai.request(app)
+          .get('/second/2/21')
+          .end(done)
+    })
+
+    it('should get input from request body', function (done) {
+      function handler(request, response) {
+        expect(request).to.have.property('pagination')
+        expect(request.pagination).to.have.property('page', 5)
+        expect(request.pagination).to.have.property('perPage', 100)
+        expect(request.pagination).to.have.property('from', 400)
+
+        response.end()
+      }
+
+      app.post('/third', addPagination, handler)
+
+      chai.request(app)
+          .post('/third')
+          .send({ page: 5, perPage: 100 })
+          .end(done)
+    })
+
+    it('should apply custom configuration', function (done) {
+      const config = {
+              input: {
+                page: 'pagina',
+                perPage: 'per-pagina'
+              },
+              output: {
+                property: 'paginazione',
+                page: 'currentPage',
+                perPage: 'limit',
+                from: 'offset',
+                defaultPerPage: 50
+              }
+            },
+            generator = pagination(config),
+            customPagination = generator()
+
+      function handler(request, response) {
+        expect(request).to.have.property('paginazione')
+        expect(request.paginazione).to.have.property('currentPage', 7)
+        expect(request.paginazione).to.have.property('limit', 12)
+        expect(request.paginazione).to.have.property('offset', 72)
+
+        response.end()
+      }
+
+      app.get('/fourth', customPagination, handler)
+
+      chai.request(app)
+          .get('/fourth?pagina=7&per-pagina=12')
+          .end(done)
     })
   })
 

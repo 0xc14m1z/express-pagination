@@ -32,10 +32,17 @@ module.exports = function pagination(config) {
       throw new TypeError(RESULTS_PER_PAGE_ERROR_MESSAGE)
 
     return function(request, _, next) {
-      const { query, params, body } = request,
-            source = query || params || body || {},
-            page = source[input.page] || DEFAULT_PAGE,
-            perPage = source[input.perPage] || localPerPage,
+      const query = request.query || {},
+            params = request.params || {},
+            body = request.body || {},
+            page = Number(query[input.page]
+                          || params[input.page]
+                          || body[input.page]
+                          || DEFAULT_PAGE),
+            perPage = Number(query[input.perPage]
+                             || params[input.perPage]
+                             || body[input.perPage]
+                             || localPerPage),
             from = (page - 1) * perPage
 
       request[output.property] = {
