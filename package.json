@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
-    "test:coverage": "nyc report --reporter=lcov",
+    "test:coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {},
