@@ -24,5 +24,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/0xc14m1z/express-pagination.git"
-  }
+  },
+  "keywords": [
+    "node",
+    "express",
+    "middleware",
+    "pagination"
+  ]
 }
