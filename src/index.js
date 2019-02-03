@@ -4,5 +4,5 @@ const addPaginationWith = pagination()
 const addPagination = addPaginationWith()
 
 module.exports = pagination
-module.exports.addPaginationWith = addPaginationWith
-module.exports.addPagination = addPagination
+module.exports.addWith = addPaginationWith
+module.exports.add = addPagination

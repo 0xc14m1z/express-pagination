@@ -193,7 +193,7 @@ module.exports = function () {
 
     const express = require('express'),
           app = express().use(express.json()),
-          addPagination = pagination.addPagination
+          addPagination = pagination.add
 
     it('should get input from query string', function (done) {
       function handler(request, response) {
