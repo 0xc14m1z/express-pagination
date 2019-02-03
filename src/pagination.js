@@ -35,14 +35,9 @@ module.exports = function pagination(config) {
       const query = request.query || {},
             params = request.params || {},
             body = request.body || {},
-            page = Number(query[input.page]
-                          || params[input.page]
-                          || body[input.page]
-                          || DEFAULT_PAGE),
-            perPage = Number(query[input.perPage]
-                             || params[input.perPage]
-                             || body[input.perPage]
-                             || localPerPage),
+            source = Object.assign({}, query, params, body)
+            page = Number(source[input.page]) || DEFAULT_PAGE,
+            perPage = Number(source[input.perPage]) || localPerPage,
             from = (page - 1) * perPage
 
       request[output.property] = {
