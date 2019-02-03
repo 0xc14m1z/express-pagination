@@ -4,14 +4,16 @@
   "description": "Configurable ExpressJS pagination middleware.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "test:coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {},
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "coveralls": "^3.0.2",
+    "express": "^4.16.4",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "sinon": "^7.2.3"
